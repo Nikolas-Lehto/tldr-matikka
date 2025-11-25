@@ -1,0 +1,36 @@
+{{ template "base.html" . }}
+
+{{ define "premain" }}
+    <header>
+        <hgroup style="margin: 6rem auto; width: fit-content;">
+            <h1 style="margin-bottom: 0;">tl;dr matikka</h1>
+            <p style="margin-top: 0;">Lukiomatikka pähkinänkuoressa</p>
+        </hgroup>
+    </header>
+{{ end }}
+
+{{ define "main" }}
+    <section>
+        <h2>Mikä?</h2>
+        <p>
+            tl;dr matikka sisältää lyhyet ja helposti ymmärrettävät tiivistelmät lukion matematiikan kursseista (MAY ja MAA)
+            tehtävien tekoa avustamaan, kertausta ohjaamaan ja silmäiltäväksi kertaustunnilla tajuttuasi, että "unohdit" tehdä
+            yhtään mitään kuluneen kurssin aikana.
+        </p>
+    </section>
+    <section id="stats"></section>
+    <section>
+        <h2>Saatavilla olevat kurssit</h2>
+        <ul>
+            {{ range .Cources }}
+            <li><a href="/cource/{{ . }}">{{ . }}</a></li>
+            {{ end }}
+        </ul>
+        <p>
+            Teemme kurssit täysin vapaaehtoistyönä (tietenkin lukio-opintojen rinnalla).
+            Lisää kursseja on tulossa, kun meillä on aikaa ja jaksamista.<br>
+            <br>
+            <small>Jos haluat auttaa kurssien luomisessa, katso <a href="/about">tietoja meistä</a>-sivu.</small>
+        </p>
+    </section>
+{{ end }}

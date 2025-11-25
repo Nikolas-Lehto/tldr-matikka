@@ -1,0 +1,55 @@
+body {
+    width: calc(100% - 1rem);
+    max-width: 1000px;
+    margin: 0 auto;
+
+    font-size: 16px;
+
+    color-scheme: dark;
+    
+    color: #ccc;
+    background-color: #222;
+}
+
+math {
+    font-size: large;
+    font-weight: 700;
+}
+
+.cources {
+    height: fit-content;
+    columns: 2 400px;
+    column-gap: 0.5rem;
+}
+
+.cources article {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    break-inside: avoid;
+}
+
+nav {
+    padding: 1rem 0;
+    border-bottom: 1px solid #ccc;
+}
+
+nav a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+
+    padding-top: 1rem;
+    margin-top: 1rem;
+
+    border-top: 1px solid #ccc;
+    font-size: 12px;
+}

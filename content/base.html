@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/static/site.css">
+        <script data-goatcounter="https://nikolas-tldr-matikka-stats.txx.fi/count"
+            async src="//nikolas-tldr-matikka-stats.txx.fi/count.js"></script>
+        <title>tl;dr {{ .CurrentCource }}</title>
+    </head>
+    <body>
+        <nav>
+            <a href="/"><b>tl;dr {{ .CurrentCource }}</b></a>
+        </nav>
+        {{ block "premain" . }}{{ end }}
+        <main>
+            {{ block "main" . }}
+            empty
+            {{ end }}
+        </main>
+        <footer>
+            <i>Rakkaudesta kertaustunnilla opiskelun aloittamiseen,</i><br>
+            &copy; Nikolas Lehto ja Kristo Kunnamo
+        </footer>
+</body>
+</html>
