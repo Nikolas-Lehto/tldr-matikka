@@ -21,7 +21,7 @@ type App struct {
 	Templates map[string]*template.Template
 	Fragments map[string]*template.Template
 	Log       *log.Logger
-	Cources   []string
+	Courses   []string
 }
 
 // Render markdown template
@@ -62,7 +62,7 @@ func (app *App) loadTemplates(dir string) error {
 			return err
 		}
 
-		// If file is a markdown fragment (cources), parse as a named template
+		// If file is a markdown fragment (courses), parse as a named template
 		// stored in Fragments map.
 		if strings.HasSuffix(path, ".md") {
 			name := filepath.Base(path)
@@ -126,8 +126,8 @@ func (app *App) renderIndex(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err := t.ExecuteTemplate(w, "base.html", map[string]any{
-		"CurrentCource": "matikka",
-		"Cources":       app.Cources,
+		"CurrentCourse": "matikka",
+		"Courses":       app.Courses,
 	})
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -135,30 +135,30 @@ func (app *App) renderIndex(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (app *App) renderCource(w http.ResponseWriter, r *http.Request) {
+func (app *App) renderCourse(w http.ResponseWriter, r *http.Request) {
 	// Extract the course slug from the URL path. net/http does not provide
 	// path parameter parsing by default, so we take the suffix after
-	// "/cource/".
+	// "/course/".
 	path := r.URL.Path
-	cource := strings.TrimPrefix(path, "/cource/")
-	cource = strings.Trim(cource, "/")
+	course := strings.TrimPrefix(path, "/course/")
+	course = strings.Trim(course, "/")
 
-	if cource == "" {
+	if course == "" {
 		http.NotFound(w, r)
 		return
 	}
 
-	t, ok := app.Templates["cource.html"]
+	t, ok := app.Templates["course.html"]
 	if !ok {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		app.Log.Print("cource.html template not found")
+		app.Log.Print("course.html template not found")
 		return
 	}
 
 	err := t.ExecuteTemplate(w, "base.html", map[string]any{
-		"CurrentCource":     cource,
-		"CurrentCourceSlug": cource + ".md",
-		"Cources":           app.Cources,
+		"CurrentCourse":     course,
+		"CurrentCourseSlug": course + ".md",
+		"Courses":           app.Courses,
 	})
 
 	if err != nil {
@@ -188,14 +188,14 @@ func main() {
 
 	app.Log.Print("Hello!")
 
-	// List cources
-	cources, err := filepath.Glob("content/cources/*.md")
+	// List courses
+	courses, err := filepath.Glob("content/courses/*.md")
 	if err != nil {
-		app.Log.Fatal("Failed to list cources: ", err)
+		app.Log.Fatal("Failed to list courses: ", err)
 	}
 
-	for _, cource := range cources {
-		app.Cources = append(app.Cources, strings.TrimPrefix(strings.TrimSuffix(cource, ".md"), "content/cources/"))
+	for _, course := range courses {
+		app.Courses = append(app.Courses, strings.TrimPrefix(strings.TrimSuffix(course, ".md"), "content/courses/"))
 	}
 
 	// Initialize template maps and load templates
@@ -210,9 +210,9 @@ func main() {
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
-	http.HandleFunc("/cource/", app.renderCource)
+	http.HandleFunc("/course/", app.renderCourse)
 	http.HandleFunc("/{$}", app.renderIndex)
 
 	app.Log.Print("Starting a server on http://localhost:8080")
-	app.Log.Fatal(http.ListenAndServe(":8080", nil))
+	app.Log.Fatal(http.ListenAndServe(":8081", nil))
 }

@@ -16,13 +16,13 @@ math {
     font-weight: 700;
 }
 
-.cources {
+.courses {
     height: fit-content;
     columns: 2 400px;
     column-gap: 0.5rem;
 }
 
-.cources article {
+.courses article {
     margin-bottom: 0.5rem;
     padding: 0.5rem;
     border: 1px solid #ccc;
